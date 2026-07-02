@@ -1,0 +1,16 @@
+# Сборка и кэш Gradle
+.gradle/
+build/
+gradle/
+/tmp/
+
+# Настройки сред разработки (Android Studio и VS Code)
+.idea/
+.kotlin/
+.vscode/
+*.iml
+*.code-workspace
+
+# Локальные параметры (ключи и пути к SDK)
+local.properties
+/.vscode/
