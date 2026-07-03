@@ -62,9 +62,10 @@ object console {
     }
 
     fun head(caption: String) {
+        val out = "$caption "
         val currentIndent = indent
-        val remainingLen = (line_len - caption.length - currentIndent.length).coerceAtLeast(0)
-        println("$WHITE$currentIndent$caption${line.repeat(remainingLen)}$RESET")
+        val remainingLen = (line_len - out.length - currentIndent.length).coerceAtLeast(0)
+        println("$WHITE$currentIndent$out${line.repeat(remainingLen)}$RESET")
     }
 
     fun begin(name: String) {
@@ -97,7 +98,7 @@ object console {
         // 3. Если всё ок — удаляем из стека
         _begin.removeAt(_begin.lastIndex)
         if (markEnd ?: group_mark_end) {
-            line()
+            head("end: $name")
         }
     }
 
@@ -145,5 +146,16 @@ object console {
 
     fun color(text: String, color: String): String {
         return getColor(color) + text + getColor("common")
+    }
+
+    fun progress(
+            percent: Int = 100,
+            passedChar: String = "|",
+            remainedChar: String = "_",
+            len: Int = 20
+    ) {
+        val count = translate(percent, 0, 100, 0, len)
+
+        print("\r" + passedChar.repeat(count) + remainedChar.repeat(len - count))
     }
 }
